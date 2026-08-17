@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "CommunityConnect",
+    "slug": "communityconnect",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#F4F8F5"
+      }
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
