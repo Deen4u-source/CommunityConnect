@@ -1,4 +1,4 @@
-import React, { useMemo, useState, type ReactNode } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -6,11 +6,8 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image,
   StatusBar,
-  FlatList,
   Pressable,
-  TextInput,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
