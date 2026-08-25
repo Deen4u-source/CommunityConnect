@@ -3,9 +3,10 @@
   "compilerOptions": {
     "strict": true,
     "noEmit": true,
+    "skipLibCheck": true,
     "allowJs": true,
     "jsx": "react-jsx",
-    "types": ["react", "react-native"],
+    "types": ["react", "react-native", "node"],
     "moduleResolution": "bundler"
   },
   "include": [
