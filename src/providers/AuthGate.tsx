@@ -13,12 +13,22 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
       if (!mounted) return;
       setSessionExists(Boolean(data.session));
       setSessionReady(true);
+    }).catch((error) => {
+      if (mounted) {
+        console.error('Failed to get session:', error);
+        setSessionReady(true);
+      }
     });
     const { data: listener } = supabase.auth.onAuthStateChange((_event, nextSession) => {
-      setSessionExists(Boolean(nextSession));
-      setSessionReady(true);
+      if (mounted) {
+        setSessionExists(Boolean(nextSession));
+        setSessionReady(true);
+      }
     });
-    return () => { mounted = false; listener.subscription.unsubscribe(); };
+    return () => {
+      mounted = false;
+      listener.subscription.unsubscribe();
+    };
   }, []);
 
   if (!isSupabaseConfigured) return <>{children}</>;
@@ -39,15 +49,70 @@ function AuthScreen() {
       return;
     }
     setBusy(true);
-    const result = mode === 'signIn'
-      ? await supabase.auth.signInWithPassword({ email: email.trim(), password })
-      : await supabase.auth.signUp({ email: email.trim(), password });
-    setBusy(false);
-    if (result.error) Alert.alert(mode === 'signIn' ? 'Sign in failed' : 'Sign up failed', result.error.message);
-    else if (mode === 'signUp' && !result.data.session) Alert.alert('Check your email', 'Confirm your email address, then sign in.');
+    try {
+      const result = mode === 'signIn'
+        ? await supabase.auth.signInWithPassword({ email: email.trim(), password })
+        : await supabase.auth.signUp({ email: email.trim(), password });
+      setBusy(false);
+      if (result.error) {
+        Alert.alert(
+          mode === 'signIn' ? 'Sign in failed' : 'Sign up failed',
+          result.error.message || 'An unknown error occurred'
+        );
+      } else if (mode === 'signUp' && !result.data.session) {
+        Alert.alert('Check your email', 'Confirm your email address, then sign in.');
+      }
+    } catch (error) {
+      setBusy(false);
+      Alert.alert(
+        'Error',
+        error instanceof Error ? error.message : 'An unexpected error occurred'
+      );
+    }
   };
 
-  return <SafeAreaView style={styles.safeArea}><View style={styles.card}><Text style={styles.eyebrow}>COMMUNITYCONNECT</Text><Text style={styles.title}>{mode === 'signIn' ? 'Welcome back' : 'Join your community'}</Text><Text style={styles.subtitle}>{mode === 'signIn' ? 'Sign in to keep your community activity connected.' : 'Create an account to participate and make an impact.'}</Text><TextInput autoCapitalize="none" keyboardType="email-address" value={email} onChangeText={setEmail} placeholder="Email address" placeholderTextColor="#5C726C" style={styles.input} /><TextInput secureTextEntry value={password} onChangeText={setPassword} placeholder="Password" placeholderTextColor="#5C726C" style={styles.input} /><Pressable disabled={busy} style={styles.button} onPress={submit}><Text style={styles.buttonText}>{busy ? 'Please wait...' : mode === 'signIn' ? 'Sign in' : 'Create account'}</Text></Pressable><Pressable onPress={() => setMode(mode === 'signIn' ? 'signUp' : 'signIn')}><Text style={styles.switchText}>{mode === 'signIn' ? 'New here? Create an account' : 'Already have an account? Sign in'}</Text></Pressable></View></SafeAreaView>;
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.card}>
+        <Text style={styles.eyebrow}>COMMUNITYCONNECT</Text>
+        <Text style={styles.title}>{mode === 'signIn' ? 'Welcome back' : 'Join our community'}</Text>
+        <Text style={styles.subtitle}>
+          {mode === 'signIn'
+            ? 'Sign in to your account to connect with your community'
+            : 'Create an account to start making a difference'}
+        </Text>
+        <TextInput
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          editable={!busy}
+          style={styles.input}
+          placeholderTextColor="#5C726C"
+        />
+        <TextInput
+          placeholder="Password (min. 6 characters)"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+          editable={!busy}
+          style={styles.input}
+          placeholderTextColor="#5C726C"
+        />
+        <Pressable
+          onPress={submit}
+          disabled={busy}
+          style={[styles.button, busy && { opacity: 0.6 }]}
+        >
+          <Text style={styles.buttonText}>{busy ? 'Loading...' : mode === 'signIn' ? 'Sign in' : 'Sign up'}</Text>
+        </Pressable>
+        <Pressable onPress={() => setMode(mode === 'signIn' ? 'signUp' : 'signIn')}>
+          <Text style={styles.switchText}>
+            {mode === 'signIn' ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
+          </Text>
+        </Pressable>
+      </View>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
