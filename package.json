@@ -7,7 +7,14 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch",
+    "test:unit": "jest tests/unit --runInBand",
+    "test:component": "jest tests/component --runInBand",
+    "test:integration": "jest tests/integration --runInBand",
+    "test:e2e": "playwright test",
+    "test:ci": "npm run test:unit && npm run test:component && npm run test:integration && npm run test:e2e"
   },
   "keywords": [
     "community",
@@ -41,8 +48,19 @@
     "react-native-web": "^0.21.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "@react-native/jest-preset": "^0.86.3",
+    "@testing-library/jest-native": "^5.4.3",
+    "@testing-library/react-native": "^13.0.0",
+    "@types/jest": "^29.5.14",
     "@types/node": "^26.3.0",
     "@types/react": "~19.2.4",
+    "babel-preset-expo": "^57.0.11",
+    "expo-modules-core": "^57.0.13",
+    "http-server": "^14.1.1",
+    "jest": "^29.7.0",
+    "jest-expo": "~57.0.0",
+    "react-test-renderer": "^19.2.3",
     "typescript": "~6.0.3"
   },
   "private": true

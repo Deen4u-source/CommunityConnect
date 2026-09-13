@@ -6,7 +6,7 @@
     "skipLibCheck": true,
     "allowJs": true,
     "jsx": "react-jsx",
-    "types": ["react", "react-native", "node"],
+    "types": ["react", "react-native", "node", "jest"],
     "moduleResolution": "bundler"
   },
   "include": [
