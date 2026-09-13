@@ -14,7 +14,13 @@
     "test:component": "jest tests/component --runInBand",
     "test:integration": "jest tests/integration --runInBand",
     "test:e2e": "playwright test",
-    "test:ci": "npm run test:unit && npm run test:component && npm run test:integration && npm run test:e2e"
+    "test:ci": "npm run test:unit && npm run test:component && npm run test:integration && npm run test:e2e",
+    "lint": "eslint \"src/**/*.{js,jsx}\"",
+    "lint:fix": "eslint \"src/**/*.{js,jsx}\" --fix",
+    "format": "prettier --write \"src/**/*.{js,jsx,css,scss,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,css,scss,json,md}\"",
+    "stylelint": "stylelint \"src/**/*.{css,scss}\"",
+    "stylelint:fix": "stylelint \"src/**/*.{css,scss}\" --fix"
   },
   "keywords": [
     "community",
