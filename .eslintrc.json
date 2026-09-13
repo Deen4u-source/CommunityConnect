@@ -1,0 +1,51 @@
+module.exports = {
+  parser: 'babel-eslint',
+  extends: [
+    'airbnb',
+    'plugin:react/recommended',
+    'plugin:jsx-a11y/recommended',
+    'plugin:prettier/recommended',
+    'prettier/react',
+  ],
+  plugins: ['react', 'jsx-a11y', 'prettier'],
+  env: {
+    browser: true,
+    es6: true,
+    jest: true,
+    node: true,
+  },
+  parserOptions: {
+    ecmaVersion: 2018,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+  rules: {
+    // Allow .js files to contain JSX (original project style)
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+
+    // Interactive app – these are common and useful
+    'react/prop-types': 'warn',
+    'react/no-array-index-key': 'warn',
+    'jsx-a11y/click-events-have-key-events': 'warn',
+    'jsx-a11y/no-static-element-interactions': 'warn',
+    'jsx-a11y/anchor-is-valid': 'warn',
+
+    // Keep the project working without massive changes
+    'no-console': 'off',
+    'react/destructuring-assignment': 'off',
+    'react/forbid-prop-types': ['error', { forbid: ['any'] }],
+
+    // Prettier handles formatting
+    'prettier/prettier': 'error',
+
+    // Useful for interactive components
+    'react/jsx-props-no-spreading': 'off',
+  },
+};
