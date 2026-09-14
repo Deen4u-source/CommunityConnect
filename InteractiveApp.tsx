@@ -30,7 +30,7 @@ import {
   setPostSave,
   sharePost,
 } from "./src/lib/community";
-import { supabase } from "./src/lib/supabase";
+import { supabase } from "./src/utils/supabase";
 import { loadProfile, saveProfile, signOut } from "./src/lib/profile";
 
 const theme = {

@@ -1,4 +1,4 @@
-import { supabase } from './supabase';
+import { supabase } from '../utils/supabase';
 
 const postTypeMap: Record<string, string> = {
   Announcement: 'announcement',

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
-import { isSupabaseConfigured, supabase } from '../lib/supabase';
+import { isSupabaseConfigured, supabase } from '../utils/supabase';
 
 export function AuthGate({ children }: { children: React.ReactNode }) {
   const [sessionReady, setSessionReady] = useState(!isSupabaseConfigured);
