@@ -4,7 +4,7 @@
     "slug": "communityconnect",
     "version": "1.0.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "Dark",
+    "userInterfaceStyle": "light",
     "assetBundlePatterns": [
       "**/*"
     ],

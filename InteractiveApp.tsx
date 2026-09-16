@@ -545,7 +545,8 @@ export default function InteractiveApp() {
       aspect: [1, 1],
       quality: 0.8,
     });
-    if (!result.canceled) setProfileAvatarUrl(result.assets[0].uri);
+    const selectedAsset = result.assets?.[0];
+    if (!result.canceled && selectedAsset) setProfileAvatarUrl(selectedAsset.uri);
   };
   const submitRequest = async (kind: "report" | "help" | "offer") => {
     if (!draft.trim()) {
