@@ -6,10 +6,10 @@ import { MainTabs } from './MainTabs';
 import { useAuth } from '../context/AuthContext';
 
 // Import your real screens
-import { LoginScreen } from '../screens/LoginScreen';
-import { RequestDetailsScreen } from '../screens/RequestDetailsScreen';
-import { CreateRequestScreen } from '../screens/CreateRequestScreen';
-import { ProfileScreen } from '../screens/ProfileScreen';
+import LoginScreen from '../screens/LoginScreen';
+import RequestDetailsScreen from '../screens/RequestScreen';
+import CreateRequestScreen from '../screens/CreateRequestScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

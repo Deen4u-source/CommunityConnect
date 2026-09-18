@@ -36,7 +36,6 @@ export default function RequestDetailsScreen() {
       const data = await getPostById(id);
       setPost(data);
     } catch (error) {
-      console.log('Error loading post:', error);
       Alert.alert('Error', 'Could not load this post');
     } finally {
       setLoading(false);
@@ -44,26 +43,22 @@ export default function RequestDetailsScreen() {
   };
 
   const handleDelete = () => {
-    Alert.alert(
-      'Delete Post',
-      'Are you sure you want to delete this post?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Delete',
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              await deletePost(id);
-              Alert.alert('Deleted', 'Post has been deleted');
-              router.back();
-            } catch (error: any) {
-              Alert.alert('Error', error.message || 'Failed to delete post');
-            }
-          },
+    Alert.alert('Delete Post', 'Are you sure you want to delete this post?', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Delete',
+        style: 'destructive',
+        onPress: async () => {
+          try {
+            await deletePost(id);
+            Alert.alert('Deleted', 'Post has been deleted');
+            router.back();
+          } catch (error: any) {
+            Alert.alert('Error', error.message || 'Failed to delete post');
+          }
         },
-      ]
-    );
+      },
+    ]);
   };
 
   if (loading) {
@@ -86,25 +81,16 @@ export default function RequestDetailsScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      {/* Post Type Badge */}
       <View style={[styles.badge, getBadgeStyle(post.post_type)]}>
         <Text style={styles.badgeText}>{post.post_type}</Text>
       </View>
 
-      {/* Date */}
       <Text style={styles.date}>
         Posted on {new Date(post.created_at).toLocaleString()}
       </Text>
 
-      {/* Body */}
       <Text style={styles.body}>{post.body}</Text>
 
-      {/* Image (if exists) */}
-      {post.image_url && (
-        <Text style={styles.imageNote}>Image: {post.image_url}</Text>
-      )}
-
-      {/* Delete Button (only for owner) */}
       {isOwner && (
         <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
           <Ionicons name="trash-outline" size={20} color="#fff" />
@@ -131,22 +117,10 @@ const getBadgeStyle = (type: string) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f8fafc',
-  },
-  content: {
-    padding: 20,
-  },
-  center: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  errorText: {
-    fontSize: 16,
-    color: '#64748b',
-  },
+  container: { flex: 1, backgroundColor: '#f8fafc' },
+  content: { padding: 20 },
+  center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  errorText: { fontSize: 16, color: '#64748b' },
   badge: {
     alignSelf: 'flex-start',
     paddingHorizontal: 12,
@@ -160,21 +134,8 @@ const styles = StyleSheet.create({
     color: '#1e293b',
     textTransform: 'capitalize',
   },
-  date: {
-    fontSize: 13,
-    color: '#94a3b8',
-    marginBottom: 20,
-  },
-  body: {
-    fontSize: 17,
-    color: '#1e293b',
-    lineHeight: 26,
-  },
-  imageNote: {
-    marginTop: 20,
-    fontSize: 14,
-    color: '#64748b',
-  },
+  date: { fontSize: 13, color: '#94a3b8', marginBottom: 20 },
+  body: { fontSize: 17, color: '#1e293b', lineHeight: 26 },
   deleteButton: {
     marginTop: 40,
     backgroundColor: '#ef4444',
@@ -185,9 +146,5 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     gap: 8,
   },
-  deleteButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
+  deleteButtonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
 });

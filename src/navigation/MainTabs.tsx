@@ -1,13 +1,17 @@
 import React from 'react';
+import { Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { MainTabParamList } from './types';
 
 // Import your real screens
-import { HomeScreen } from '../screens/HomeScreen';
-import { MyRequestsScreen } from '../screens/MyRequestsScreen';
-import { NotificationsScreen } from '../screens/NotificationsScreen';
-import { SettingsScreen } from '../screens/SettingsScreen';
+import HomeScreen from '../screens/HomeScreen';
+
+const EmptyScreen = () => (
+  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <Text>Coming soon</Text>
+  </View>
+);
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
@@ -39,9 +43,9 @@ export const MainTabs = () => {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }} />
-      <Tab.Screen name="MyRequests" component={MyRequestsScreen} options={{ title: 'My Requests' }} />
-      <Tab.Screen name="Notifications" component={NotificationsScreen} options={{ title: 'Alerts' }} />
-      <Tab.Screen name="Settings" component={SettingsScreen} options={{ title: 'Settings' }} />
+      <Tab.Screen name="MyRequests" component={EmptyScreen} options={{ title: 'My Requests' }} />
+      <Tab.Screen name="Notifications" component={EmptyScreen} options={{ title: 'Alerts' }} />
+      <Tab.Screen name="Settings" component={EmptyScreen} options={{ title: 'Settings' }} />
     </Tab.Navigator>
   );
 };
