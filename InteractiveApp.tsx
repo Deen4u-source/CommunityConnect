@@ -1,4 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
+// @ts-ignore React Native types may be unavailable in this app's current TypeScript setup.
 import {
   Alert,
   Image,

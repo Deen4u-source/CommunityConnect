@@ -143,25 +143,35 @@ The app requires the following tables in Supabase:
 
 ```
 .
-├── App.tsx                          # Root component with auth wrapper
-├── InteractiveApp.tsx               # Main app UI with all 5 tabs
+├── app/                             # Frontend: Expo Router routes and layouts
+├── src/                             # Frontend: reusable application code
+│   ├── components/                  # UI components
+│   ├── constants/                   # Shared constants and styles
+│   ├── context/                     # React context
+│   ├── lib/                         # Supabase client-side data access
+│   ├── navigation/                  # Navigation types and navigators
+│   ├── providers/                   # App-level providers
+│   ├── screens/                     # Screen components
+│   ├── services/                    # Client-side API and service calls
+│   ├── types/                       # Shared TypeScript types
+│   └── utils/                       # Shared utility functions
+├── supabase/                        # Backend database schema and migrations
+│   └── migrations/
+├── tests/                           # Unit, component, integration, and E2E tests
+│   ├── component/
+│   ├── e2e/
+│   ├── integration/
+│   └── unit/
+├── App.tsx                          # Root application component
+├── InteractiveApp.tsx               # Interactive demo application
 ├── index.js                         # Expo entry point
-├── app/
-│   └── index.tsx                    # Expo Router entry point
-├── src/
-│   ├── lib/
-│   │   ├── supabase.ts              # Supabase client initialization
-│   │   ├── community.ts             # Community-related API calls
-│   │   └── profile.ts               # Profile-related API calls
-│   └── providers/
-│       └── AuthGate.tsx             # Auth state management & login screen
-├── supabase/
-│   └── migrations/                  # Database migration files
+├── app.json                         # Expo configuration
+├── package.json                     # Dependencies and scripts
 ├── tsconfig.json                    # TypeScript configuration
-├── package.json                     # Dependencies
-├── app.json                         # Expo app configuration
-└── README.md                        # This file
+└── README.md                        # Project documentation
 ```
+
+`app/` stays at the project root because Expo Router discovers routes there. Supabase migrations stay in the root `supabase/` directory for compatibility with Supabase tooling. This project does not currently contain a separately deployed backend server; `src/lib/` and `src/services/` are frontend code that calls Supabase.
 
 ## Development Guide
 
